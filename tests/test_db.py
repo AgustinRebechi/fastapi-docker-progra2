@@ -5,9 +5,8 @@ from sqlalchemy import select
 from fast_zero.models import User
 
 
-def test_create_user(session):
+def test_create_user(session, mock_db_time):
     with mock_db_time(model=User) as time:
-        
 
         new_user = User(username='alice', password='secret', email='test@test')
         session.add(new_user)
@@ -21,4 +20,5 @@ def test_create_user(session):
         'password': 'secret',
         'email': 'test@test',
         'created_at': time,
+        'updated_at': time,
     }
